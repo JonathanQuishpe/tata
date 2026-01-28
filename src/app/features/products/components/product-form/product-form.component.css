@@ -1,0 +1,57 @@
+.form-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  width: 70%;
+  background: #fff;
+  padding: 1rem 1.5rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex div {
+  margin: 1rem 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .flex {
+    flex-direction: column;
+  }
+
+  .flex div {
+    width: 100% !important;
+  }
+}
+
+h1 {
+  text-align: center;
+  font-size: 25px;
+}
+
+.section-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.section-buttons button {
+  margin: 1rem;
+}
+
+input {
+  border-radius: 0;
+  width: 100%;
+}
+
+small {
+  color: #b91c1c;
+  font-size: 12px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #ef4444;
+}

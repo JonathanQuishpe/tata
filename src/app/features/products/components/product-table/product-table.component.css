@@ -1,0 +1,65 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+  background: #fff;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table thead {
+  background-color: #f3f4f6;
+}
+
+@media (min-width: 1024px) {
+  .table {
+    min-width: 100%;
+  }
+}
+
+.actions {
+  position: relative;
+  text-align: right;
+}
+
+.btn-dots {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  right: 5%;
+  top: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.dropdown button {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background: #f3f4f6;
+}
+
+.dropdown .danger {
+  color: #ef4444;
+}

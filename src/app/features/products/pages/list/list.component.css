@@ -1,0 +1,62 @@
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem;
+  background: #fff;
+}
+
+.skeleton-line,
+.skeleton-circle {
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 37%, #e5e7eb 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+.skeleton-line {
+  height: 16px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.skeleton-line.header {
+  height: 20px;
+  width: 40%;
+}
+
+.skeleton-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.table.skeleton td {
+  padding: 12px;
+}
+
+.empty-state {
+  padding: 48px 16px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  border: none;
+  padding: 6px 12px;
+}

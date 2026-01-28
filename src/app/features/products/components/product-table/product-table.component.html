@@ -1,0 +1,37 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Logo</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fecha liberación</th>
+            <th>Fecha revisión</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (item of items; track item.id) {
+        <tr>
+            <td>
+                <img src="https://www.visa.com.ec/dam/VCOM/regional/lac/SPA/Default/Pay%20With%20Visa/Tarjetas/visa-signature-400x225.jpg"
+                    width="80" />
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.date_release }}</td>
+            <td>{{ item.date_revision }}</td>
+            <td class="actions">
+                <button class="btn-dots" (click)="toggleMenu.emit(item.id)">⋯</button>
+
+                @if (openMenuId === item.id) {
+                <div class="dropdown">
+                    <button (click)="edit.emit(item.id)">Editar</button>
+                    <button class="danger" (click)="delete.emit(item)">Eliminar</button>
+                </div>
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

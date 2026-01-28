@@ -1,0 +1,89 @@
+<div class="page">
+    <div class="form-wrapper">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <h1>
+                Formulario de Registro
+            </h1>
+            <hr>
+            <div class="flex">
+                <div class="w-50">
+                    <label>ID:</label>
+                    <input type="text" formControlName="id">
+                    @if (hasError('id', 'required')) {
+                    <small>El ID es requerido</small>
+                    }
+                    @if (hasError('id', 'minlength')) {
+                    <small>Mínimo 3 caracteres</small>
+                    }
+                    @if (hasError('id', 'maxlength')) {
+                    <small>Máximo 10 caracteres</small>
+                    }
+                    @if (hasError('id', 'idExists')) {
+                    <small>El ID ya existe</small>
+                    }
+                </div>
+                <div class="w-50">
+                    <label>Nombre:</label>
+                    <input type="text" formControlName="name">
+                    @if (hasError('name', 'required')) {
+                    <small>El nombre es requerido</small>
+                    }
+                    @if (hasError('name', 'minlength')) {
+                    <small>Mínimo 5 caracteres</small>
+                    }
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-50">
+                    <label>Descripción:</label>
+                    <input type="text" formControlName="description">
+                    @if (hasError('description', 'required')) {
+                    <small>La descripción es requerida</small>
+                    }
+                    @if (hasError('description', 'minlength')) {
+                    <small>Mínimo 10 caracteres</small>
+                    }
+                </div>
+                <div class="w-50">
+                    <label>Logo:</label>
+                    <input type="text" formControlName="logo">
+                    @if (hasError('logo', 'required')) {
+                    <small>El logo es requerido</small>
+                    }
+                </div>
+            </div>
+            <div class="flex">
+                <div class="w-50">
+                    <label>Fecha de Liberación:</label>
+                    <input type="date" formControlName="date_release">
+                    @if (hasError('date_release', 'required')) {
+                    <small>Fecha requerida</small>
+                    }
+                </div>
+                <div class="w-50">
+                    <label>Fecha de Revisión:</label>
+                    <input type="date" formControlName="date_revision" readonly>
+                    @if (form.hasError('invalidRevisionDate') && form.touched) {
+                    <small>Debe ser exactamente un año posterior</small>
+                    }
+                </div>
+            </div>
+            <div class="section-buttons">
+                @if(!disableId){
+                <button type="button" class="btn-secondary" (click)="reset()">
+                    Reiniciar
+                </button>
+                }
+                @if(disableId){
+                <button type="button" class="btn-secondary" (click)="cancel.emit()">
+                    Cancelar
+                </button>
+                }
+
+                <button class="btn-primary" type="submit">
+                    Enviar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

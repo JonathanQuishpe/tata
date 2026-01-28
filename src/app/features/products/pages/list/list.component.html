@@ -1,0 +1,84 @@
+<div class="page">
+    <div class="right">
+        <a routerLink="/create" class="btn-primary">
+            Agregar
+        </a>
+    </div>
+
+    @if (deleteError) {
+    <div class="alert error">
+        {{ deleteError }}
+    </div>
+    }
+
+
+    @if (loading) {
+    <div class="table-wrapper">
+        <table class="table skeleton">
+            <thead>
+                <tr>
+                    <th colspan="6">
+                        <div class="skeleton-line header"></div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (row of [1,2,3,4,5]; track row) {
+                <tr>
+                    <td>
+                        <div class="skeleton-line"></div>
+                    </td>
+                    <td>
+                        <div class="skeleton-line"></div>
+                    </td>
+                    <td>
+                        <div class="skeleton-line"></div>
+                    </td>
+                    <td>
+                        <div class="skeleton-line"></div>
+                    </td>
+                    <td>
+                        <div class="skeleton-line"></div>
+                    </td>
+                    <td>
+                        <div class="skeleton-circle"></div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+
+    @if (!loading && errorMessage) {
+    <div class="alert error">
+        <span>{{ errorMessage }}</span>
+        <button class="btn-retry" (click)="loadProducts()">
+            Reintentar
+        </button>
+    </div>
+    }
+
+    @if (!loading && !errorMessage && !hasItems) {
+    <div class="empty-state">
+        <p>No hay productos registrados aún.</p>
+    </div>
+    }
+    @if (!loading && !errorMessage && hasItems) {
+
+    <input type="text" placeholder="Search" class="search" (input)="onSearch($event)" />
+
+    <div class="table-wrapper">
+        <app-product-table [items]="paginatedItems" [openMenuId]="openMenuId" (edit)="editItem($event)"
+            (delete)="confirmDelete($event)" (toggleMenu)="toggleMenu($event)" />
+
+        <app-pagination-table [resultsCount]="paginatedItems.length" (pageSizeChange)="onPageSizeChange($event)" />
+
+    </div>
+    }
+
+</div>
+
+@if (itemToDelete) {
+<app-delete-modal [item]="itemToDelete" (confirm)="deleteItem()" (cancel)="cancelDelete()" />
+}

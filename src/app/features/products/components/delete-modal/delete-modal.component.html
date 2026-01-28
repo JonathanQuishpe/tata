@@ -1,0 +1,13 @@
+<div class="modal-backdrop">
+    <div class="modal">
+        <h3>Eliminar producto</h3>
+        <p>
+            ¿Seguro que deseas eliminar <strong>{{ item.name }}</strong>?
+        </p>
+        <hr />
+        <div class="modal-actions">
+            <button class="btn-secondary" (click)="cancel.emit()">Cancelar</button>
+            <button class="btn-primary" (click)="confirm.emit()">Eliminar</button>
+        </div>
+    </div>
+</div>

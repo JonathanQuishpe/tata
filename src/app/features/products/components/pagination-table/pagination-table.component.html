@@ -1,0 +1,13 @@
+<div class="list-toolbar">
+    <div class="results-info">
+        {{ resultsCount }} Resultados
+    </div>
+
+    <div class="controls">
+        <select class="page-size" (change)="pageSizeChange.emit(+$any($event.target).value)">
+            <option [value]="5">5</option>
+            <option [value]="10">10</option>
+            <option [value]="20">20</option>
+        </select>
+    </div>
+</div>
