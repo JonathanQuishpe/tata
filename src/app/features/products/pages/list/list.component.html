@@ -11,43 +11,8 @@
     </div>
     }
 
-
     @if (loading) {
-    <div class="table-wrapper">
-        <table class="table skeleton">
-            <thead>
-                <tr>
-                    <th colspan="6">
-                        <div class="skeleton-line header"></div>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (row of [1,2,3,4,5]; track row) {
-                <tr>
-                    <td>
-                        <div class="skeleton-line"></div>
-                    </td>
-                    <td>
-                        <div class="skeleton-line"></div>
-                    </td>
-                    <td>
-                        <div class="skeleton-line"></div>
-                    </td>
-                    <td>
-                        <div class="skeleton-line"></div>
-                    </td>
-                    <td>
-                        <div class="skeleton-line"></div>
-                    </td>
-                    <td>
-                        <div class="skeleton-circle"></div>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+    <app-skeleton-table />
     }
 
     @if (!loading && errorMessage) {
@@ -64,15 +29,26 @@
         <p>No hay productos registrados aún.</p>
     </div>
     }
-    @if (!loading && !errorMessage && hasItems) {
 
-    <input type="text" placeholder="Search" class="search" (input)="onSearch($event)" />
+    @if (!loading && !errorMessage && hasItems) {
+    <input type="text" placeholder="Search" class="search" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" />
 
     <div class="table-wrapper">
+        @if(paginatedItems.length > 0){
         <app-product-table [items]="paginatedItems" [openMenuId]="openMenuId" (edit)="editItem($event)"
             (delete)="confirmDelete($event)" (toggleMenu)="toggleMenu($event)" />
 
         <app-pagination-table [resultsCount]="paginatedItems.length" (pageSizeChange)="onPageSizeChange($event)" />
+        }
+
+        @if(paginatedItems.length === 0){
+        <div class="empty-state">
+            <p>No se encontraron productos que coincidan con la búsqueda.</p>
+            <button class="btn-retry" (click)="cleanFilter()">
+                Limpiar filtro
+            </button>
+        </div>
+        }
 
     </div>
     }

@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductFormComponent } from '../../components/product-form/product-form.component';
-import { ApiService } from '../../../../services/api.service';
-import { Product } from '../../../../types/Product';
+import { ApiService } from '../../services/api.service';
+import { Product } from '../../types/Product';
 
 @Component({
   selector: 'app-update',
@@ -32,14 +32,14 @@ export class UpdateComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) return;
 
-    this.api.get(`bp/products/${id}`).subscribe({
+    this.api.get(`products/${id}`).subscribe({
       next: (data) => (this.product = data),
       error: () => this.router.navigate(['/']),
     });
   }
 
   update(data: Product) {
-    this.api.put('bp/products', data.id, data).subscribe(() => {
+    this.api.put('products', data.id, data).subscribe(() => {
       this.router.navigate(['/']);
     });
   }

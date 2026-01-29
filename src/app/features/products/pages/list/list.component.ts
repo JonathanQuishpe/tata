@@ -1,20 +1,26 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { ApiService } from '../../../../services/api.service';
-import { Product } from '../../../../types/Product';
-import { ApiResponse } from '../../../../types/ApiResponse';
+import { ApiService } from '../../services/api.service';
+import { Product } from '../../types/Product';
+import { ApiResponse } from '../../types/ApiResponse';
 import { finalize } from 'rxjs/operators';
 import { ProductTableComponent } from '../../components/product-table/product-table.component';
 import { PaginationTableComponent } from '../../components/pagination-table/pagination-table.component';
 import { DeleteModalComponent } from '../../components/delete-modal/delete-modal.component';
+import { FormsModule } from '@angular/forms';
+import { SkeletonTableComponent } from '../../components/skeleton-table/skeleton-table.component';
+
 
 @Component({
   selector: 'app-list',
+  standalone: true,
   imports: [
     RouterLink,
+    FormsModule,
     ProductTableComponent,
     PaginationTableComponent,
     DeleteModalComponent,
+    SkeletonTableComponent
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css',
@@ -43,7 +49,7 @@ export class ListComponent implements OnInit {
     this.errorMessage = '';
 
     this.api
-      .get<ApiResponse<Product[]>>('bp/products')
+      .get<ApiResponse<Product[]>>('products')
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (res) => {
@@ -59,7 +65,7 @@ export class ListComponent implements OnInit {
   }
 
   get hasItems(): boolean {
-    return this.filteredItems.length > 0;
+    return this.items.length > 0;
   }
 
   editItem(id: string) {
@@ -73,7 +79,7 @@ export class ListComponent implements OnInit {
   deleteItem() {
     this.deleteError = null;
 
-    this.api.delete('bp/products', this.itemToDelete.id).subscribe({
+    this.api.delete('products', this.itemToDelete.id).subscribe({
       next: () => {
         this.itemToDelete = null;
         this.loadProducts();
@@ -95,9 +101,13 @@ export class ListComponent implements OnInit {
     this.itemToDelete = null;
   }
 
-  onSearch(event: Event) {
-    const value = (event.target as HTMLInputElement).value.toLowerCase();
-    this.searchTerm = value;
+  onSearch() {
+    this.currentPage = 1;
+    this.applyFilters();
+  }
+
+  cleanFilter() {
+    this.searchTerm = "";
     this.currentPage = 1;
     this.applyFilters();
   }
@@ -108,10 +118,10 @@ export class ListComponent implements OnInit {
     this.filteredItems = !term
       ? [...this.items]
       : this.items.filter(
-          (item) =>
-            item.name.toLowerCase().includes(term) ||
-            item.description.toLowerCase().includes(term)
-        );
+        (item) =>
+          item.name.toLowerCase().includes(term) ||
+          item.description.toLowerCase().includes(term)
+      );
 
     this.totalPages = Math.max(
       1,

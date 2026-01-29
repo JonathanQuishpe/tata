@@ -1,0 +1,35 @@
+<div class="table-wrapper">
+    <table class="table skeleton">
+        <thead>
+            <tr>
+                <th colspan="6">
+                    <div class="skeleton-line header"></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (row of [1,2,3,4,5]; track row) {
+            <tr>
+                <td>
+                    <div class="skeleton-line"></div>
+                </td>
+                <td>
+                    <div class="skeleton-line"></div>
+                </td>
+                <td>
+                    <div class="skeleton-line"></div>
+                </td>
+                <td>
+                    <div class="skeleton-line"></div>
+                </td>
+                <td>
+                    <div class="skeleton-line"></div>
+                </td>
+                <td>
+                    <div class="skeleton-circle"></div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

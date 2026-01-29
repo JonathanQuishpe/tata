@@ -16,9 +16,10 @@ import {
 } from '@angular/forms';
 import { map, catchError, of } from 'rxjs';
 
-import { ApiService } from '../../../../services/api.service';
+import { ApiService } from '../../services/api.service';
 @Component({
   selector: 'app-product-form',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css',
@@ -132,8 +133,8 @@ export class ProductFormComponent implements OnInit {
         return of(null);
       }
 
-      return this.api.get(`bp/products/${control.value}`).pipe(
-        map(() => ({ idExists: true })),
+      return this.api.get(`products/verification/${control.value}`).pipe(
+        map((res) => (res ? { idExists: true } : null)),
         catchError(() => of(null))
       );
     };
